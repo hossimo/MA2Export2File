@@ -3,7 +3,7 @@
 
  ## [Download](https://github.com/hossimo/MA2Export2File/releases)
 
- ![IMAGE](https://github.com/hossimo/MA2Export2File/blob/action-add-workflow/Images/example.png)
+ ![IMAGE](https://github.com/hossimo/MA2Export2File/blob/master/Images/example.png)
  
 
 
