@@ -17,18 +17,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path : .
-          key: ${{ runner.os }}-restore-${{ github.sha }}
-
-  build-win-x64:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache
-        uses: actions/cache@v1
-        with:
-          path : .
-          key: ${{ runner.os }}-restore-${{ github.sha }}
-      - name: Build win-x64
-        run: dotnet build --runtime win-x64 --configuration Release --no-restore
+          key: ${{ runner.os }}-${{ github.sha }}
 
   publish-win-x64:
     name: Publish Windows x64
