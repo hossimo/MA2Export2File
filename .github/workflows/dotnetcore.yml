@@ -1,0 +1,100 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ master, action-add-workflow ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Restore
+        run: dotnet restore
+      - name: Cache
+        uses: actions/cache@v1
+        with:
+          path : .
+          key: ${{ runner.os }}-restore-${{ github.sha }}
+
+  build-win-x64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache
+        uses: actions/cache@v1
+        with:
+          path : .
+          key: ${{ runner.os }}-restore-${{ github.sha }}
+      - name: Build win-x64
+        run: dotnet build --runtime win-x64 --configuration Release --no-restore
+
+  publish-win-x64:
+    name: Publish Windows x64
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache
+        uses: actions/cache@v1
+        with:
+          path : .
+          key: ${{ runner.os }}-${{ github.sha }}
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+      - name: Publish win-x64
+        run: dotnet publish --nologo --no-restore --configuration Release --runtime win-x64 --framework netcoreapp3.0 --no-self-contained --output ./MA2Export2File
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: MA2Export2File-x64
+          path: ./MA2Export2File
+
+  publish-win-x86:
+    name: Publish Windows x86
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache checkout
+        uses: actions/cache@v1
+        with:
+          path : .
+          key: ${{ runner.os }}-${{ github.sha }}
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+      - name: Publish win-x86
+        run: dotnet publish --nologo --no-restore --configuration Release --runtime win-x86 --framework netcoreapp3.0 --no-self-contained --output ./MA2Export2File
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: MA2Export2File-x86
+          path: ./MA2Export2File
+
+  publish-macOS-x64:
+    name: Publish macOS x64
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache checkout
+        uses: actions/cache@v1
+        with:
+          path : .
+          key: ${{ runner.os }}-${{ github.sha }}
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+      - name: Publish macOS-x86
+        run: dotnet publish --nologo --no-restore --configuration Release --runtime osx-x64 --framework netcoreapp3.0 --no-self-contained --output ./MA2Export2File
+      - name: Make Executable
+        run: chmod ug+x ./MA2Export2File/ArtNetTimecode
+      - run: ls -la ./MA2Export2File
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: MA2Export2File-macOS-x64
+          path: ./MA2Export2File
