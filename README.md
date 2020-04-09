@@ -1,4 +1,4 @@
-# MA2Export2File
+# MA2Export2File ![.NET Core](https://github.com/hossimo/MA2Export2File/workflows/.NET%20Core/badge.svg)
  Terminal application that takes an MA2 Image Export XML file and extracts the included images. Should run on Windows Mac or Linux with the **[.NET](https://dotnet.microsoft.com/download)** framework.
 
  ## [Download](https://github.com/hossimo/MA2Export2File/releases)
