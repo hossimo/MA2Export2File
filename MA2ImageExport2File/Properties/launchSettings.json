@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MA2ImageExport2File": {
+      "commandName": "Project",
+      "commandLineArgs": "c:\\tmp\\3images.xml"
+    }
+  }
+}
