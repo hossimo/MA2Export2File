@@ -34,7 +34,7 @@ jobs:
         with:
           dotnet-version: 3.1.101
       - name: Publish win-x64
-        run: dotnet publish --nologo --no-restore --configuration Release --runtime win-x64 --framework netcoreapp3.1 --no-self-contained --output ./MA2Export2File
+        run: dotnet publish --nologo --configuration Release --runtime win-x64 --framework netcoreapp3.1 --no-self-contained --output ./MA2Export2File
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
@@ -56,7 +56,7 @@ jobs:
         with:
           dotnet-version: 3.1.101
       - name: Publish win-x86
-        run: dotnet publish --nologo --no-restore --configuration Release --runtime win-x86 --framework netcoreapp3.1 --no-self-contained --output ./MA2Export2File
+        run: dotnet publish --nologo --configuration Release --runtime win-x86 --framework netcoreapp3.1 --no-self-contained --output ./MA2Export2File
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
@@ -78,7 +78,7 @@ jobs:
         with:
           dotnet-version: 3.1.101
       - name: Publish macOS-x86
-        run: dotnet publish --nologo --no-restore --configuration Release --runtime osx-x64 --framework netcoreapp3.1 --no-self-contained --output ./MA2Export2File
+        run: dotnet publish --nologo --configuration Release --runtime osx-x64 --framework netcoreapp3.1 --no-self-contained --output ./MA2Export2File
       - name: Make Executable
         run: chmod ug+x ./MA2Export2File/ArtNetTimecode
       - run: ls -la ./MA2Export2File
