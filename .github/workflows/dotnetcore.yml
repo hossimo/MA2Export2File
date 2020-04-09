@@ -38,7 +38,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: MA2Export2File-x64
+          name: MA2Export2File-Win-x64
           path: ./MA2Export2File
 
   publish-win-x86:
@@ -60,7 +60,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: MA2Export2File-x86
+          name: MA2Export2File-Win-x86
           path: ./MA2Export2File
 
   publish-macOS-x64:
@@ -83,4 +83,26 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: MA2Export2File-macOS-x64
+          path: ./MA2Export2File
+          
+  publish-linux-x64:
+    name: Publish Linux x64
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache checkout
+        uses: actions/cache@v1
+        with:
+          path : .
+          key: ${{ runner.os }}-${{ github.sha }}
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.201
+      - name: Publish Linux-x64
+        run: dotnet publish --nologo --configuration Release --runtime linux-x64 --framework netcoreapp3.1 --no-self-contained --output ./MA2Export2File
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: MA2Export2File-Linux-x64
           path: ./MA2Export2File
